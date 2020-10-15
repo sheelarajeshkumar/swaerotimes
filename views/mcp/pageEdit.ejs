@@ -1,0 +1,304 @@
+<%- include('layouts/header') -%>
+<!-- page content -->
+<div class="right_col" role="main">
+  <form method="post" id="demo-form" encType="multipart/form-data" data-parsley-validate>
+
+    <div class="">
+      <div class="page-title">
+        <div class="title_left">
+          <h3>Edit </h3>
+        </div>
+
+        <div class="title_right">
+          <div class="col-md-3 col-sm-3 col-xs-12 form-group pull-right top_search">
+            <div class="btn-group">
+              <input type="submit" class="btn btn-primary sd" value="Save page" />
+              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+              <ul class="dropdown-menu chg" role="menu">
+                <li><a href="#" style="padding:10px; font-weight: bold">Publish</a>
+                </li>
+              </ul>
+              <br>
+              <br>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="clearfix"></div>
+
+      <div class="row">
+        <div class="col-md-8 col-sm-12 col-xs-12">
+          <div class="x_panel">
+
+            <div class="x_content">
+              <label for="title">Title :</label>
+              <input type="text" id="fullname" class="form-control" value="<%= typeof page!='undefined' ? page[0].title: '' %>" name="title" required />
+
+              <br>
+              <label for="message">Content :</label>
+              <div id="alerts"></div>
+              <textarea name="descr" id="editor1" rows="10" cols="80"><%= typeof page!='undefined' ? page[0].content: '' %></textarea>
+
+
+              <br />
+
+
+                    <!-- <br>
+                    <p>Drag multiple files to the box below for multi upload or click to select files. This is for demonstration purposes only, the files are not uploaded to any server.</p>
+                    <form action="form_upload.html" class="dropzone"></form> -->
+
+                    
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 col-sm-12 col-xs-12">
+                <div class="x_panel">
+
+                  <div class="x_content">
+
+                    <div class="bs-example" data-example-id="simple-jumbotron" onclick=" return fetchImages();" data-toggle="modal" data-target=".bs-example-modal-lg" style="cursor: pointer;">
+                      <div class="jumbotron SingleImage" style="min-height: 173px;background-image: url(/swaerotimes/uploads/<%= typeof page!='undefined' ? page[0].feature_image: '' %>);">
+                        <!-- <h1>Hello, world!</h1> -->
+                        <p class="upload_image" style="display: <%= typeof page!='undefined' && page[0].feature_image =='' || typeof page=='undefined' ? 'block': 'none' %>;" align="center">Upload feature image</p>
+                       <input type="hidden" name="feature_image" value="<%= typeof page!='undefined' ? page[0].feature_image: '' %>" />
+                      </div>
+                    </div>
+                    <a class="remove_img" onclick="return remove_img()" style="display: <%= typeof page!='undefined' && page[0].feature_image ? 'block': 'none' %>; cursor: pointer;">Remove feature image </a>
+                    <br />
+
+                    <div class="clearfix"></div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+
+            <!-- <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+              </button>
+              <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div> -->
+            <div class="modal-body">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+              </button>
+              <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                  <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Image</a>
+                  </li>
+                  <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Upload</a>
+                  </li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                  <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                    <div class="row upload"> 
+
+                      <!-- <p>Media gallery design emelents</p> -->
+
+                    </div>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                    <!-- <p>Drag multiple files to the box below for multi upload or click to select files. This is for demonstration purposes only, the files are not uploaded to any server.</p> -->
+                    <form id="upload-images" action="/mcp/media/save" method="page" class="dropzone dz-clickable"><div class="dz-default dz-message"><span>Drop files here to upload</span></div></form>
+                    <br>
+                    <br>
+                  </div>
+                </div>
+              </div>
+            </div>
+           <!--  <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div> -->
+
+          </div>
+        </div>
+      </div>
+ <!-- jQuery -->
+    <script src="/mcp/vendors/jquery/dist/jquery.min.js"></script>
+       <script type="text/javascript">
+
+        var loaded = false;
+             function fetchImages() {
+
+                    if(loaded) return;
+                     
+                        $.ajax({ 
+                          type: 'GET', 
+                          url: 'http://localhost:3000/mcp/media', 
+                          dataType: 'json',
+                          success: function (data) { 
+                              $.each(data, function(index, element) {
+                                  $('.upload').append(
+                                    '<div class="col-md-55 reupload">'+
+                        '<div class="thumbnail select-thum" style="height: auto;">'+
+                          '<div class="image view view-first">'+
+                            '<img style="width: 100%; height: 100%; display: block;" src="'+'/swaerotimes/uploads/'+element+'" alt="image">'+
+                            '<div style="height: 100%;" class="mask se se-'+index+'" onclick="return selectImage(\''+index+'\' , \''+element+'\')">'+
+                              '<p><br></p>'+
+                              '<div class="tools tools-bottom">'+
+                                '<a style="cursor:pointer;" onclick="return removeItem(\''+element+'\')"><i class="fa fa-times"></i></a>'+
+                              '</div>'+
+                            '</div>'+
+                          '</div>'+
+
+                        '</div>'+
+                      '</div>'
+                      );
+                              });
+                          }
+                      });
+                loaded = true;
+            }
+
+        function selectImage(index,ele){
+          $('.SingleImage').css({'background-image':'url(/swaerotimes/uploads/'+ele+')','background-size':'cover'});
+          $('.SingleImage input[name=feature_image]').val(ele);
+           $('.remove_img').css({'display':'block'});
+           $('.upload_image').css({'display':'none'});
+           $('.se').css( {"border": "none","opacity":"0"} );
+           
+           //alert(index);
+           $('.se-'+index).css( {"border": "6px solid rgb(134, 198, 233)","opacity":"1"} );
+        }
+
+        function remove_img(){
+          $('.SingleImage').css({'background-image':'none'});
+         $('.SingleImage input[name=feature_image]').val('');
+          $('.remove_img').css({'display':'none'});
+           $('.upload_image').css({'display':'block'});
+        }
+
+      $(function(){
+          Dropzone.options.uploadImages = {
+            maxFilesize: 5,
+            //addRemoveLinks: true,
+            dictResponseError: 'Connection lost. Please reupload.',
+            acceptedFiles: ".png,.jpg,.gif,.bmp,.jpeg",
+
+            init:function(){
+              var self = this;
+              // config
+            //  self.options.addRemoveLinks = true;
+              self.options.dictRemoveFile = "Delete";
+              //New file added
+              self.on("addedfile", function (file) {
+                //console.log('new file added ', file);
+              });
+              // Send file starts
+              self.on("sending", function (file) {
+                //console.log('upload started', file);
+                $('.meter').show();
+              });
+              
+              // File upload Progress
+              self.on("totaluploadprogress", function (progress) {
+                //console.log("progress ", progress);
+                //$('.roller').width(progress + '%');
+              });
+
+              self.on("queuecomplete", function (progress) {
+                $('.meter').delay(999).slideUp(999);
+              });
+              
+              // On removing file
+              self.on("removedfile", function (file) {
+                 var name = file.name;
+                $.ajax({
+                    type: 'GET',
+                    url:'/mcp/media/delete/'+name,
+                    //data:'id='+name,
+                    dataType:'json',
+                    success: function(data){ }
+            });
+                //console.log(file);
+              });
+            }
+          };
+      });
+        
+
+        $('#home-tab').click(function(){
+          $('.reupload').remove();
+             $.ajax({ 
+                          type: 'GET', 
+                          url: 'http://localhost:3000/mcp/media', 
+                          dataType: 'json',
+                          success: function (data) { 
+                              $.each(data, function(index, element) {
+                                  $('.upload').append(
+                                    '<div class="col-md-55 reupload">'+
+                        '<div class="thumbnail select-thum" style="height: auto;">'+
+                          '<div class="image view view-first">'+
+                            '<img style="width: 100%; height: 100%; display: block;" src="'+'/swaerotimes/uploads/'+element+'" alt="image">'+
+                            '<div style="height: 100%;" class="mask se se-'+index+'" onclick="return selectImage(\''+index+'\' , \''+element+'\')">'+
+                              '<p><br></p>'+
+                              '<div class="tools tools-bottom">'+
+                                '<a style="cursor:pointer;" onclick="return removeItem(\''+element+'\')"><i class="fa fa-times"></i></a>'+
+                              '</div>'+
+                            '</div>'+
+                          '</div>'+
+
+                        '</div>'+
+                      '</div>'
+                      );
+                              });
+                          }
+                      });
+        });
+
+        function removeItem(i){
+               $('.reupload').remove();
+                $.ajax({
+                    type: 'GET',
+                    url:'/mcp/media/delete/'+i,
+                    //data:'id='+name,
+                    dataType:'html',
+                    success: function(data){
+                      $.ajax({ 
+                          type: 'GET', 
+                          url: 'http://localhost:3000/mcp/media', 
+                          dataType: 'json',
+                          success: function (data) { 
+                              $.each(data, function(index, element) {
+                                  $('.upload').append(
+                                    '<div class="col-md-55 reupload">'+
+                        '<div class="thumbnail select-thum" style="height: auto;">'+
+                          '<div class="image view view-first">'+
+                            '<img style="width: 100%; height: 100%; display: block;" src="'+'/swaerotimes/uploads/'+element+'" alt="image">'+
+                            '<div style="height: 100%;" class="mask se se-'+index+'" onclick="return selectImage(\''+index+'\' , \''+element+'\')">'+
+                              '<p><br></p>'+
+                              '<div class="tools tools-bottom">'+
+                                '<a style="cursor:pointer;" onclick="return removeItem(\''+element+'\')"><i class="fa fa-times"></i></a>'+
+                              '</div>'+
+                            '</div>'+
+                          '</div>'+
+
+                        '</div>'+
+                      '</div>'
+                      );
+                              });
+                          }
+                      });
+                    }
+            });
+        }
+        $(".chg li").click(function(){
+          // alert("boom");
+          var sd = $(".sd").val().trim();
+          $(".sd").val($(this).text().trim());
+          $(".chg li a").text(sd);
+        });
+      </script>
+
+      <%- include('layouts/footer') -%>

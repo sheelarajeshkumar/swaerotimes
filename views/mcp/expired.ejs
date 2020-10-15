@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Password Expired</title>
+
+    <!-- Bootstrap -->
+    <link href="/mcp/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/mcp/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="/mcp/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="/mcp/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- Dropzone css -->
+    <link href="/mcp/vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
+    <!-- bootstrap-wysiwyg -->
+    <link href="/mcp/vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="/mcp/build/css/custom.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <div class="main_container">
+            <div class="col-md-6 left_col">
+                <div class="left_col scroll-view">
+                    <div class="right_col" role="main">
+                        <div class="">
+                            <div class="page-title">
+                                <div class="title_left">
+                                    <h3>Password Reset Page</h3>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="x_panel">
+                                        <h1>Password Expired</h1>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Style all input fields */
+    
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 16px;
+        }
+    
+        /* Style the submit button */
+    
+        input[type=submit] {
+            background-color: #4CAF50;
+            color: white;
+        }
+    
+        /* Style the container for inputs */
+    
+        .container {
+            background-color: #f1f1f1;
+            padding: 20px;
+        }
+    
+        /* The message box is shown when the user clicks on the password field */
+    
+        #message {
+            display: none;
+            background: #f1f1f1;
+            color: #000;
+            position: relative;
+            padding: 20px;
+            margin-top: 10px;
+        }
+    
+        #message p {
+            padding: 10px 35px;
+            font-size: 18px;
+        }
+    
+        /* Add a green text color and a checkmark when the requirements are right */
+    
+        .valid {
+            color: green;
+        }
+    
+        .valid:before {
+            position: relative;
+            left: -35px;
+            content: "✔";
+        }
+    
+        /* Add a red text color and an "x" when the requirements are wrong */
+    
+        .invalid {
+            color: red;
+        }
+    
+        .invalid:before {
+            position: relative;
+            left: -35px;
+            content: "✖";
+        }
+    </style>
+<script>
+    var myInput = document.getElementById("password");
+    var letter = document.getElementById("letter");
+    var capital = document.getElementById("capital");
+    var number = document.getElementById("number");
+    var length = document.getElementById("length");
+
+    // When the user clicks on the password field, show the message box
+    myInput.onfocus = function () {
+        document.getElementById("message").style.display = "block";
+    }
+
+    // When the user clicks outside of the password field, hide the message box
+    myInput.onblur = function () {
+        document.getElementById("message").style.display = "none";
+    }
+
+    // When the user starts to type something inside the password field
+    myInput.onkeyup = function () {
+        // Validate lowercase letters
+        var lowerCaseLetters = /[a-z]/g;
+        if (myInput.value.match(lowerCaseLetters)) {
+            letter.classList.remove("invalid");
+            letter.classList.add("valid");
+        } else {
+            letter.classList.remove("valid");
+            letter.classList.add("invalid");
+        }
+
+        // Validate capital letters
+        var upperCaseLetters = /[A-Z]/g;
+        if (myInput.value.match(upperCaseLetters)) {
+            capital.classList.remove("invalid");
+            capital.classList.add("valid");
+        } else {
+            capital.classList.remove("valid");
+            capital.classList.add("invalid");
+        }
+
+        // Validate numbers
+        var numbers = /[0-9]/g;
+        if (myInput.value.match(numbers)) {
+            number.classList.remove("invalid");
+            number.classList.add("valid");
+        } else {
+            number.classList.remove("valid");
+            number.classList.add("invalid");
+        }
+
+        // Validate length
+        if (myInput.value.length >= 8) {
+            length.classList.remove("invalid");
+            length.classList.add("valid");
+        } else {
+            length.classList.remove("valid");
+            length.classList.add("invalid");
+        }
+    }
+</script>
+<!-- jQuery -->
+<script src="/mcp/vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="/mcp/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="/mcp/vendors/fastclick/lib/fastclick.js"></script>
+<!-- NProgress -->
+<script src="/mcp/vendors/nprogress/nprogress.js"></script>
+<!-- iCheck -->
+<script src="/mcp/vendors/iCheck/icheck.min.js"></script>
+<!-- Dropzone.js -->
+<script src="/mcp/vendors/dropzone/dist/min/dropzone.min.js"></script>
+<!-- CKeditor -->
+<script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
+<!-- validator -->
+<script src="/mcp/vendors/validator/validator.js"></script>
+<!-- bootstrap-progressbar -->
+<script src="/mcp/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+<!-- bootstrap-wysiwyg -->
+<script src="../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+<script src="../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+<script src="../vendors/google-code-prettify/src/prettify.js"></script>
+<script>
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+   // CKEDITOR.replace('editor1');
+</script>
+<!-- Custom Theme Scripts -->
+<script src="/mcp/build/js/custom.min.js"></script>
+</body>
+
+</html>

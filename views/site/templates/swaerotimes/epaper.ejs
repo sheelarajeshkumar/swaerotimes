@@ -1,0 +1,104 @@
+<%- include('layouts/header') -%>
+
+<!-- Main -->
+<div id="main" style="font-family:'Raleway', Helvetica, sans-serif; margin-top:30px;">
+
+    <!-- Post -->
+        <article class="post">
+            <header>
+                <div class="title">
+                    <h2 style="letter-spacing:0;"><a href="#">E-PAPER</a></h2>
+                </div>
+            </header>
+            <form method="POST" class="ep">
+                <div class="row">
+                    <input name="date" id="datepicker" type="date" class="form-control" style="width: 40%;">
+                    <input type="submit" value="search" class="sear" style="width: 20%;">
+                </div>
+            </form>
+
+            <section id="pan-when-zoomed">
+                <br>
+                <div class="row">
+                 <div class="10u 12u$(medium)">
+	                
+                    <section id="panzoom-parent" style="background-color:#efefef;">
+                        <div class="panzoom" style="touch-action: none;">
+                            <img src="#" id='pap' style="width:100%;" alt=""/>
+                        </div>
+                      </section>
+	             </div>
+                 <div class="2u 12u$(medium)">
+                 	<% if(typeof epaper!='undefined') { %>
+                 	<% epaper.forEach(function(paper){ %>
+                 	<img id="pep" src="/swaerotimes/epapers/<%= paper.link %>" style="width:100%;" alt=""/>
+                 	<% }); %>
+                 	<% } %>
+                 </div>
+            	</div>
+                
+
+              </section>
+        </article>
+
+</div>
+<!-- jQuery -->
+    <script src="/mcp/vendors/jquery/dist/jquery.min.js"></script>
+<script src="/swaerotimes/assets/js/jquery.panzoom.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.js"></script>
+            <script>
+                var now = new Date();
+
+                    var day = ("0" + now.getDate()).slice(-2);
+                    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+                    var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
+                    $('#datepicker').val(today);
+    
+            (function() {
+                
+                                        
+                var $p = $(".panzoom").panzoom({
+                minScale: 4,
+                maxScale: 4,
+                panOnlyWhenZoomed: false,
+                // which: -1,
+                $zoomIn: $(".zoom-in"),
+                $zoomOut: $(".zoom-out"),
+                $zoomRange: $(".zoom-range"),
+                $reset: $(".reset")
+                });
+                var $inout = 0;
+                                        $('#panzoom-parent').on('click', function(e) {
+                                            e.preventDefault();
+                                            if($inout==0){
+                                            $p.panzoom('zoom', {
+                                              focal: e
+                                            });
+                                            $inout=$inout + 1;
+                                            }
+                                            else{
+                                            $p.panzoom('reset');
+                                            $inout=0;
+                                            }
+                                          });
+                                          $('#panzoom-parent').on('mousedown touchstart', function(e) {
+                                            e.preventDefault();
+                                            if($inout==0){
+                                            $p.panzoom('zoom', {
+                                              focal: e
+                                            });
+                                            $inout=$inout + 1;
+                                            }
+                                            else{
+                                            $p.panzoom('reset');
+                                            $inout=0;
+                                            }
+                                          });
+
+                                      })();
+
+            </script>
+           
+<%- include('layouts/footer') -%>

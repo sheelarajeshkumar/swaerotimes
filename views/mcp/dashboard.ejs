@@ -1,0 +1,136 @@
+<%- include('layouts/header') -%>
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+    <h1 align="center" style="padding:20px; color:#5f738e;">Welcome <%= session.user.fullname; %> ( <%= typeof session.user.role_id.role && session.user.role_id.role =='district_editor'?'District Editor': (typeof session.user.role_id.role && session.user.role_id.role =='village_reporter'?'Village Reporter':'Administrator'); %> ) </h1>
+
+
+     <% if(session.user.role_id.role == 'administrator'){ %>
+        <div class="row top_tiles">
+          <h3>English</h3>
+          <div class="tile-stats animated flipInY col-lg-6 col-md-6 col-sm-6 col-xs-12" style="text-align:center;">
+            <!-- <div class="icon"><i class="fa fa-thumb-tack"></i></div> -->
+            <div class="count" style="margin:inherit;"><%= publish_en %></div>
+            <h3 style="margin:inherit;">PUBLISHED</h3>
+            <!-- <p style="margin:inherit;">Lorem ipsum psdea itgum rixt.</p> -->
+          </div>
+          <div class="tile-stats animated flipInY col-lg-6 col-md-6 col-sm-6 col-xs-12" style="text-align:center;">
+            <!-- <div class="icon"><i class="fa fa-thumb-tack"></i></div> -->
+            <div class="count" style="margin:inherit;"><%= pending_en %></div>
+            <h3 style="margin:inherit;">PENDING FOR PUBLISH APPROVAL</h3>
+            <!-- <p style="margin:inherit;">Lorem ipsum psdea itgum rixt.</p> -->
+          </div>
+          </div>
+       <div class="row top_tiles">
+          <h3>Telugu</h3>
+          <div class="tile-stats animated flipInY col-lg-6 col-md-6 col-sm-6 col-xs-12" style="text-align:center;">
+            <!-- <div class="icon"><i class="fa fa-thumb-tack"></i></div> -->
+            <div class="count" style="margin:inherit;"><%= publish_te %></div>
+            <h3 style="margin:inherit;">PUBLISHED</h3>
+            <!-- <p style="margin:inherit;">Lorem ipsum psdea itgum rixt.</p> -->
+          </div>
+          <div class="tile-stats animated flipInY col-lg-6 col-md-6 col-sm-6 col-xs-12" style="text-align:center;">
+            <!-- <div class="icon"><i class="fa fa-thumb-tack"></i></div> -->
+            <div class="count" style="margin:inherit;"><%= pending_te %></div>
+            <h3 style="margin:inherit;">PENDING FOR PUBLISH APPROVAL</h3>
+            <!-- <p style="margin:inherit;">Lorem ipsum psdea itgum rixt.</p> -->
+          </div>
+          </div>
+        <% } %>
+
+
+      <div class="row top_tiles">
+
+          <h3 align="center" style="padding:20px;">ENGLISH</h3>
+          <% if(session.user.role_id.role == 'administrator'){ %>
+        <a href="/mcp/categories/en" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <div class="tile-stats" style="text-align:center;">
+            <!-- <div class="icon"><i class="fa fa-thumb-tack"></i></div> -->
+            <div class="count" style="margin:inherit;"><i class="fa fa-sitemap"></i></div>
+            <h3 style="margin:inherit;">Categories</h3>
+            <!-- <p style="margin:inherit;">Lorem ipsum psdea itgum rixt.</p> -->
+          </div>
+        </a>
+        <a href="/mcp/pages/en" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="tile-stats" style="text-align:center;">
+              <!-- <div class="icon"><i class="fa fa-thumb-tack"></i></div> -->
+              <div class="count" style="margin:inherit;"><i class="fa fa-edit"></i></div>
+              <h3 style="margin:inherit;">Pages</h3>
+              <!-- <p style="margin:inherit;">Lorem ipsum psdea itgum rixt.</p> -->
+            </div>
+          </a>
+           <a href="/mcp/menus/en" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="tile-stats" style="text-align:center;">
+              <!-- <div class="icon"><i class="fa fa-thumb-tack"></i></div> -->
+              <div class="count" style="margin:inherit;"><i class="fa fa-thumb-tack"></i></div>
+              <h3 style="margin:inherit;">Menus</h3>
+              <!-- <p style="margin:inherit;">Lorem ipsum psdea itgum rixt.</p> -->
+            </div>
+          </a>
+           <% } %>
+          <a href="/mcp/posts/en" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="tile-stats" style="text-align:center;">
+              <!-- <div class="icon"><i class="fa fa-thumb-tack"></i></div> -->
+              <div class="count" style="margin:inherit;"><i class="fa fa-edit"></i></div>
+              <h3 style="margin:inherit;">Posts</h3>
+              <!-- <p style="margin:inherit;">Lorem ipsum psdea itgum rixt.</p> -->
+            </div>
+          </a>
+         
+      </div>
+      <div class="row top_tiles">
+            <h3 align="center" style="padding:20px;">TELUGU</h3>
+             <% if(session.user.role_id.role == 'administrator'){ %>
+            <a href="/mcp/categories/te" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+              <div class="tile-stats" style="text-align:center;">
+                <!-- <div class="icon"><i class="fa fa-thumb-tack"></i></div> -->
+                <div class="count" style="margin:inherit;"><i class="fa fa-sitemap"></i></div>
+                <h3 style="margin:inherit;">Categories</h3>
+                <!-- <p style="margin:inherit;">Lorem ipsum psdea itgum rixt.</p> -->
+              </div>
+            </a>
+            <a href="/mcp/pages/te" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats" style="text-align:center;">
+                  <!-- <div class="icon"><i class="fa fa-thumb-tack"></i></div> -->
+                  <div class="count" style="margin:inherit;"><i class="fa fa-edit"></i></div>
+                  <h3 style="margin:inherit;">Pages</h3>
+                  <!-- <p style="margin:inherit;">Lorem ipsum psdea itgum rixt.</p> -->
+                </div>
+              </a>
+               <a href="/mcp/menus/te" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats" style="text-align:center;">
+                  <!-- <div class="icon"><i class="fa fa-thumb-tack"></i></div> -->
+                  <div class="count" style="margin:inherit;"><i class="fa fa-thumb-tack"></i></div>
+                  <h3 style="margin:inherit;">Menus</h3>
+                  <!-- <p style="margin:inherit;">Lorem ipsum psdea itgum rixt.</p> -->
+                </div>
+              </a>
+               <% } %>
+              <a href="/mcp/posts/te" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats" style="text-align:center;">
+                  <!-- <div class="icon"><i class="fa fa-thumb-tack"></i></div> -->
+                  <div class="count" style="margin:inherit;"><i class="fa fa-edit"></i></div>
+                  <h3 style="margin:inherit;">Posts</h3>
+                  <!-- <p style="margin:inherit;">Lorem ipsum psdea itgum rixt.</p> -->
+                </div>
+              </a>
+             
+          </div>
+           <% if(session.user.role_id.role == 'administrator'){ %>
+          <div class="row top_tiles">
+                <h3 align="center" style="padding:20px;">SETTING</h3>
+              <a href="/mcp/users" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats" style="text-align:center;">
+                  <!-- <div class="icon"><i class="fa fa-thumb-tack"></i></div> -->
+                  <div class="count" style="margin:inherit;"><i class="fa fa-users"></i></div>
+                  <h3 style="margin:inherit;">User</h3>
+                  <!-- <p style="margin:inherit;">Lorem ipsum psdea itgum rixt.</p> -->
+                </div>
+              </a>
+            </div>
+               <% } %>
+
+    </div>
+  </div>
+  <!-- /page content -->
+<%- include('layouts/footer') -%>

@@ -1,0 +1,76 @@
+<%- include('layouts/header') -%>
+<!-- Sidebar -->
+<section id="sidebar" style="margin-top:30px;">
+
+    <!-- Mini Posts -->
+        <section>
+            <div class="mini-posts" style="padding: 22px;background-color:  #fff;border: solid 1px rgba(160, 160, 160, 0.3);">
+                <h2>LATEST POSTS</h2>
+                   <% latest.forEach(function(late) { %>
+                    <article class="mini-post">
+                        <header>
+                            <% var date =  new Date(late.addedOn); var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];%>
+                            <h3><a href="<%= '/'+late.language+'/'+late.slug+'/'+date.getFullYear()+'/'+monthNames[date.getMonth()]+'/'+date.getDate()+'/'+late.slug.replace(/ /g,"-") %>"><%= late.title %></a></h3>
+                           
+                            <p style="font-size: 10px;font-weight: 400; margin-bottom:1em;color:#333;"><%= monthNames[date.getMonth()]+', '+date.getFullYear() %></p>
+                            <p class="published"><%= late.excerpt %></p>
+                        </header>
+                        <a href="<%= '/'+late.language+'/'+late.slug+'/'+date.getFullYear()+'/'+monthNames[date.getMonth()]+'/'+date.getDate()+'/'+late.slug.replace(/ /g,"-") %>" class="image"><img style="height:138.38px;" src="/swaerotimes/uploads/<%= late.feature_image; %>" alt="" /></a>
+                    </article>
+
+                    <% }); %>
+
+            </div>
+        </section>
+
+</section>
+<!-- Main -->
+<div id="main" style="margin-top:30px;">
+
+    <!-- Post -->
+        <article class="post">
+            <header>
+                <div class="title">
+                    <h2 style="letter-spacing:0;"><%= post.title%></h2>
+                    <!-- <p>Lorem ipsum dolor amet nullam consequat etiam feugiat</p> -->
+                </div>
+                <div class="meta">
+                    <% var date =  new Date(post.addedOn); var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];%>
+                    <time class="published" datetime="2015-11-01"><%= monthNames[date.getMonth()]+', '+date.getFullYear() %></time>
+                    <a href="#" class="author"><span>Created On</a>
+                </div>
+            </header>
+            <span class="image featured"><img src="/swaerotimes/uploads/<%= post.feature_image; %>" width="1029px" height="418px" alt="" /></span>
+            <p class="wn" style="line-height: 2em;"><%- post.content%></p>
+            <% if( typeof post.video_link != "undefined" && post.video_link!="" ){ %>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= post.video_link %>" frameborder="0" allow="autoplay; encrypted-media"
+                allowfullscreen></iframe>
+            <% } %>
+            <br>
+            <br>
+            <footer>
+                <!-- <ul class="stats">
+                    <li><a href="#">General</a></li>
+                    <li><a href="#" class="icon fa-heart">28</a></li>
+                    <li><a href="#" class="icon fa-comment">128</a></li>
+                </ul> -->
+                
+                <a onclick="openwindow('https://www.facebook.com/sharer/sharer.php?u=')" title="Share on Facebook" class="button small" target="__blank"><i class="fa fa-facebook fa-2x" aria-hidden="true"></i></a>
+                <a onclick="openwindow('https://plus.google.com/share?url=')"  class="button small" target="__blank"><i class="fa fa-google-plus fa-2x" aria-hidden="true"></i></a>
+                <a onclick="openwindow('https://twitter.com/intent/tweet?text=')" class="button small" target="__blank"><i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+                <a onclick="openwindow('whatsapp://send?text=')"  class="button small" target="__blank"><i class="fa fa-whatsapp fa-2x" aria-hidden="true"></i></a>
+                <a onclick="openwindow('http://www.pinterest.com/pin/find/?url=')" class="button small" target="__blank"><i class="fa fa-instagram fa-2x" aria-hidden="true"></i></a>
+                <a onclick="openwindow('http://www.linkedin.com/shareArticle?mini=true&title=%E0%B0%B0%E0%B0%BF%E0%B0%B7%E0%B0%AC%E0%B1%8D%E2%80%8C+%E0%B0%AA%E0%B0%82%E0%B0%A4%E0%B1%8D%E2%80%8C%E0%B0%AA%E0%B1%88+%E0%B0%A7%E0%B1%8B%E0%B0%A8%E0%B0%BF+%E0%B0%AB%E0%B1%8D%E0%B0%AF%E0%B0%BE%E0%B0%A8%E0%B1%8D%E0%B0%B8%E0%B1%8D%E2%80%8C+%E0%B0%86%E0%B0%97%E0%B1%8D%E0%B0%B0%E0%B0%B9%E0%B0%82+&url=')" target="__blank"  class="button small"><i class="fa fa-linkedin fa-2x" aria-hidden="true"></i></a>
+            </footer>
+        </article>
+
+</div>
+
+<script>
+    function openwindow(url){
+        var currentLocation = window.location.href;
+        window.open(url+currentLocation, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600'); 
+        return false;
+    }
+</script>
+<%- include('layouts/footer') -%>

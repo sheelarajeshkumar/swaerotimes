@@ -1,0 +1,203 @@
+<%- include('layouts/header') -%>
+<!-- Sidebar -->
+<section id="sidebar">
+
+	<!-- Intro -->
+	<!-- <section id="intro">
+						<a href="#" class="logo"><img src="images/logo.jpg" alt="" /></a>
+						<header>
+							<h2>Future Imperfect</h2>
+							<p>Another fine responsive site template by <a href="http://html5up.net">HTML5 UP</a></p>
+						</header>
+					</section> -->
+
+	<!-- Mini Posts -->
+	<section style="font-family:'Raleway', Helvetica, sans-serif;margin-top:30px;">
+
+		<section>
+			<div class="mini-posts" style="padding: 22px;background-color:  #fff;border: solid 1px rgba(160, 160, 160, 0.3);">
+				<h2>PLAYLIST</h2>
+
+				<iframe width="100%" height="" src="https://www.youtube.com/embed/UCaPm6OOlk03E6f7GJ_6VKLA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+				<br>
+				<br>
+				<a href="#" class="btn btn-lg btn-danger" data-toggle="modal" data-target="#basicModal">Subcribe</a>
+				
+				<br>
+				<br>
+				<h2>Social Media</h2>
+
+				<!-- edit the link by yourself -->
+				<input class="socia" id="tab1" type="radio" name="tabs" checked>
+				<label class="socia" for="tab1">Facebook</label>
+
+				<input class="socia" id="tab2" type="radio" name="tabs">
+				<label class="socia" for="tab2">Twitter</label>
+
+
+				<section class="socia" id="content1">
+					<div class="fb-page" data-href="https://www.facebook.com/PylonNews" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/PylonNews" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/PylonNews">PylonNews</a></blockquote></div>
+
+				</section>
+
+				<section class="socia" id="content2">
+				<a class="twitter-timeline"
+				href="https://twitter.com/pylonnews"
+				data-height="400">
+				Tweets by @PylonNews
+				</a>
+
+
+				</section>
+			</div>
+
+		</section>
+
+
+
+	</section>
+
+	<!-- Posts List -->
+
+	<!-- About -->
+
+
+
+
+</section>
+
+<!-- Main -->
+<div id="main" style="margin-top:30px;">
+					<% posts.forEach(function(post){ %>
+						<!-- Post -->
+						<% if( post.post.length > 0 ){ %>
+						<article class="post">
+							
+							<header>
+								<div class="title">
+									<h2 style="letter-spacing:0; font-family:'nats';"><a href="<%= '/'+post.language+'/'+post.slug.replace(/ /g,'-') %>"><%= post.category %></a></h2>
+								</div>
+								
+							</header>
+							
+							<% var temp=0; var style=0; var sec = 0; post.post.forEach(function(pos){ %>
+						
+							<% if(temp==0) { %>
+								<!--POST 1-->
+								<section>
+									<div class="row">
+										<div class="6u 12u$(medium) hv">
+											<h3 style="font-size: 1.5em; margin-bottom:5px; letter-spacing: 0;">
+												<% var date =  new Date(pos.addedOn); var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];%>
+												<a href="<%= '/'+pos.language+'/'+post.slug.replace(/ /g,"-")+'/'+date.getFullYear()+'/'+monthNames[date.getMonth()]+'/'+date.getDate()+'/'+pos.slug.replace(/ /g,"-") %>"><%= pos.title %></a></h3>
+											<p style="font-size: 1.0em;font-family:'Raleway', Helvetica, sans-serif;font-weight: 400; margin-bottom:0em;color:#888;"><%= monthNames[date.getMonth()]+', '+date.getFullYear() %></p>
+											<p><%- pos.excerpt %> </p>
+										</div>
+										<div class="6u 12u$(medium) hv">
+											<a href="<%= '/'+pos.language+'/'+post.slug.replace(/ /g,"-")+'/'+date.getFullYear()+'/'+monthNames[date.getMonth()]+'/'+date.getDate()+'/'+pos.slug.replace(/ /g,"-") %>" class="image featured"><img style="height:201.56px" src="/swaerotimes/uploads/<%= pos.feature_image; %>" alt="" /></a>
+										</div>
+									</div>
+								</section>
+								<!--END POST1-->
+							<% } %>
+
+							<% if(temp!=0) { %>
+								<% if(style==1) { %>
+								<br>
+								<!--POST2-->
+								<section>
+									<div class="row">
+										<!--POST 3-->
+										<div class="6u 12u$(medium)">
+										
+								<% } %>
+								<% if(style ==1) { %>
+											<article class="mini-post">
+												<header>
+													<h3 style="font-size: 1.0em; margin-bottom:12px; letter-spacing: 0;">
+<% var date =  new Date(pos.addedOn); var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];%>
+<a href="<%= '/'+pos.language+'/'+post.slug.replace(/ /g,"-")+'/'+date.getFullYear()+'/'+monthNames[date.getMonth()]+'/'+date.getDate()+'/'+pos.slug.replace(/ /g,"-") %>"><%= pos.title %></a></h3>
+													<p class="txin" style="text-transform:  capitalize;margin-bottom: 1em;color: #333;"><%= monthNames[date.getMonth()]+', '+date.getFullYear() %></p>
+													<p style="letter-spacing:0;" class="published"><%- pos.excerpt %></p>
+													<!-- <a href="#" class="author"><img src="images/avatar.jpg" alt="" /></a> -->
+												</header>
+												<a href="<%= '/'+pos.language+'/'+post.slug.replace(/ /g,"-")+'/'+date.getFullYear()+'/'+monthNames[date.getMonth()]+'/'+date.getDate()+'/'+pos.slug.replace(/ /g,"-") %>" class="image"><img style="height:207.083px;" src="/swaerotimes/uploads/<%= pos.feature_image; %>" alt="" /></a>
+											</article>
+											<ul class="posts">
+								<%  } %>
+								<% if(style >1 && style <4) { %>
+												<li>
+													<article>
+														<header>
+															<h3 style="font-size: 1.0em; margin-bottom:5px; letter-spacing: 0;">
+<% var date =  new Date(pos.addedOn); var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];%>
+																<a href="<%= '/'+pos.language+'/'+post.slug.replace(/ /g,"-")+'/'+date.getFullYear()+'/'+monthNames[date.getMonth()]+'/'+date.getDate()+'/'+pos.slug.replace(/ /g,"-") %>"><%= pos.title %></a></h3>
+															<p class="txin" style="text-transform:  capitalize;margin-bottom: 1em;color: #333;"><%= monthNames[date.getMonth()]+', '+date.getFullYear() %></p>
+															<p style="letter-spacing:0;" class="published liti txin"><%- pos.excerpt %></p>
+														</header>
+														<a href="<%= '/'+pos.language+'/'+post.slug.replace(/ /g,"-")+'/'+date.getFullYear()+'/'+monthNames[date.getMonth()]+'/'+date.getDate()+'/'+pos.slug.replace(/ /g,"-") %>" class="image"><img style="height:64px;"  src="/swaerotimes/uploads/<%= pos.feature_image; %>" alt="" /></a>
+													</article>
+												</li>
+										<% } %>
+									
+										<!--POST 4-->
+								<% if(style==4 ) { %>
+									</ul>
+										</div>
+								<div class="6u$ 12u$(medium)">
+											<!-- <h4>Ordered</h4> -->
+											<ul class="posts">
+												<!-- POST 9-->		
+								<% } %>
+
+										<% if(style >3 ) { %>
+												<li>
+													<article>
+														<header>
+															<h3 style="font-size: 1.0em; margin-bottom:5px; letter-spacing: 0;">
+<% var date =  new Date(pos.addedOn); var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];%>
+																<a href="<%= '/'+pos.language+'/'+post.slug.replace(/ /g,"-")+'/'+date.getFullYear()+'/'+monthNames[date.getMonth()]+'/'+date.getDate()+'/'+pos.slug.replace(/ /g,"-") %>"><%= pos.title %></a></h3>
+															<p class="txin" style="text-transform:  capitalize;margin-bottom: 1em;color: #333;"><%= monthNames[date.getMonth()]+', '+date.getFullYear() %></p>
+															<p style="letter-spacing:0;" class="published liti txin"><%- pos.excerpt %></p>
+														</header>
+														<a href="<%= '/'+pos.language+'/'+post.slug.replace(/ /g,"-")+'/'+date.getFullYear()+'/'+monthNames[date.getMonth()]+'/'+date.getDate()+'/'+pos.slug.replace(/ /g,"-") %>" class="image"><img style="height:64px;"  src="/swaerotimes/uploads/<%= pos.feature_image; %>" alt="" /></a>
+													</article>
+												</li>
+										<% } %>
+
+										<% if(style>8 ) { %>
+											</ul>
+											<!--End POST 9-->
+										</div>
+										<% } %>
+
+									
+								
+
+							<% } %>
+
+					<% temp++; style++;}); %>
+				
+			</section>
+			<% var emp=0; post.post.forEach(function(pos){ %>
+			<% if(emp==4) { %>
+						<footer>
+							<ul class="actions">
+								<li><a href="<%= '/'+pos.language+'/'+post.category.replace(/ /g,"-") %>" class="button big">Read More</a></li>
+							</ul>
+		
+					</footer>
+					<% } %>
+					<% emp++;}); %>										
+							</article><% } %>
+
+				<%	}); %>
+
+
+
+
+
+						</div>
+
+
+						<%- include('layouts/footer') -%>

@@ -1,0 +1,631 @@
+ <%- include('layouts/header') -%>  
+    <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <!-- <div class="title_left">
+                <h3><%# title %></h3>
+              </div> -->
+
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <!-- <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                              <button class="btn btn-default" type="button">Go!</button>
+                          </span>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_content">
+
+                    <form method="post" class="form-horizontal form-label-left"  novalidate>
+
+                      <!-- <p>For alternative validation library <code>parsleyJS</code> check out in the <a href="form.html">form page</a> -->
+                      </p>
+                      <span class="section">Personal Info</span>
+                      <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> <span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+
+
+
+
+                    <div class="bs-example" data-example-id="simple-jumbotron" onclick=" return fetchImages();" data-toggle="modal" data-target=".bs-example-modal-lg" style="cursor: pointer;">
+                      <div class="jumbotron SingleImage" style="height: 173px;width:173px;padding:71px 17px;margin-bottom:15px;background-image: url(/swaerotimes/uploads/<%= typeof user!='undefined' ? user[0].user_image: '' %>);">
+                        <!-- <h1>Hello, world!</h1> -->
+                        <p class="upload_image" style="display: <%= typeof user!='undefined' && user[0].user_image =='' || typeof user=='undefined' ? 'block': 'none' %>;" align="center">Upload picture</p>
+                       <input type="hidden" name="user_image" value="<%= typeof user!='undefined' ? user[0].user_image: '' %>" />
+                      </div>
+                    </div>
+                    <a class="remove_img" onclick="return remove_img()" style="display: <%= typeof user!='undefined' && user[0].user_image ? 'block': 'none' %>; cursor: pointer;">Remove picture</a>
+
+
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Name <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+<%  if(typeof user != 'undefined' && user[0].email == session.user.email){ %>
+                          <input onkeypress="return onlyAlphabets(event,this);" id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="1" name="name" value="<%= typeof user!='undefined' ? user[0].fullname :''  %>" placeholder="both name(s) e.g Jon Doe" required="required" type="text" >
+<% } else{ %>
+   <input onkeypress="return onlyAlphabets(event,this);" id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="1" name="name" value="<%= typeof user!='undefined' ? user[0].fullname :''  %>" placeholder="both name(s) e.g Jon Doe" required="required" type="text" <%= typeof user!='undefined' ? 'readonly' :''  %>>
+  <% } %>
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Email <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <% if( session.user.role_id.role == 'village_reporter'||session.user.role_id.role == 'administrator' || session.user.role_id.role == 'district_editor'){ %>  
+                            <% if( typeof user == 'undefined' ) { %>
+                              <input type="email" id="email"  name="email" required="required"
+ class="form-control col-md-7 col-xs-12 email">
+                              <% }else{ %>  
+                                <input type="email" id="email" readonly name="email" value="<%= typeof user!='undefined' ? user[0].email :''  %>" required="required"
+                                  class="form-control col-md-7 col-xs-12">
+                              <% } %>
+                          
+                          <% }else if(typeof user != 'undefined' && user[0].email ==  session.user.email){ %>
+                            <input type="email" id="email" readonly name="email" value="<%= typeof user!='undefined' ? user[0].email :''  %>" required="required"
+ class="form-control col-md-7 col-xs-12 email">
+                          <% }else{ %>
+                            <input type="email" id="email"  name="email" value="<%= typeof user!='undefined' ? user[0].email :''  %>" required="required"
+ class="form-control col-md-7 col-xs-12 email">
+ <% } %>
+                        </div>
+                      </div>
+                       <% if(session.user.role_id.role == 'district_editor'){ %>
+                        <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="state">State <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            
+                             <input type="text" id="state" name="state" value="<%= typeof user!='undefined' ? user[0].state  :session.user.state  %>" required="required" class="form-control col-md-7 col-xs-12" readonly>
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="state">District <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <% if( typeof user === 'undefined' ) { %>
+                             <% if(session.user.role_id.role == 'district_editor'){  %>
+                              <input type="text" id="district" name="district" value="<%= typeof user!='undefined' ? user[0].district  :session.user.district %>"
+                                required="required" class="form-control col-md-7 col-xs-12" readonly>
+                             <% }else{ %>
+                                  <select id="hear" name="district" class="form-control" required>
+                                    <option value="<%= typeof user!='undefined' ? user[0].district :'Not Selected'  %>" selected readonly>
+                                      <%= typeof user!='undefined' ? user[0].district :'Not Selected'  %>
+                                    </option>
+                                    <% district.forEach(function(dist){ %>
+                                      <option id="<%= dist.state.replace(/\s+/g, '-') %>" value="<%= dist.district %>" <%# typeof user!='undefined' && user[0].district==d
+                                        ist.district ? 'selected': '' %>>
+                                        <%= dist.district %>
+                                      </option>
+                                      <% }); %>
+                                  </select>
+                                  <input type="hidden" value="false" name="status">
+                              <% } %>
+                            <% }else{ %>
+                              <input type="text" id="district" name="district" value="<%= typeof user!='undefined' ? user[0].district  :session.user.district  %>"
+                                required="required" class="form-control col-md-7 col-xs-12" readonly>
+                              <% } %>
+                             
+                        </div>
+                      </div>  
+                      <div class="item form-group">
+                    <% if(session.user.role_id.role != 'village_reporter' ){  %>
+                    <% if(newUser){ %>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="district">Mandal <span class="required">*</span>
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                              <select id="hear" name="mandal" class="form-control" required>
+                                <option value="<%= typeof user!='undefined' ? user[0].mandal :'Select Options'  %>" selected readonly><%= typeof user!='undefined' ? user[0].mandal :'Select Options'  %></option>
+                                <% mandal.forEach(function(man){ %>
+                                <option id="<%= man.district.replace(/\s+/g, '-') %>" value="<%= man.mandal %>" <%# typeof user!='undefined' && user[0].mandal == man.mandal ?  'selected':''  %>><%= man.mandal %></option>
+                                <% }); %>
+                              </select>
+                          </div>
+                    <% } else if(session.user.email !=user[0].email ){ %>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="district">Mandal <span class="required">*</span>
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                              <select id="hear" name="mandal" class="form-control" required>
+                                <option value="<%= typeof user!='undefined' ? user[0].mandal :'Select Options'  %>" selected readonly><%= typeof user!='undefined' ? user[0].mandal :'Select Options'  %></option>
+                                <% mandal.forEach(function(man){ %>
+                                <option id="<%= man.district.replace(/\s+/g, '-') %>" value="<%= man.mandal %>" <%# typeof user!='undefined' && user[0].mandal == man.mandal ?  'selected':''  %>><%= man.mandal %></option>
+                                <% }); %>
+                              </select>
+                          </div>
+                      <% } %>                       
+                      <% }else{ %>
+                      
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="mandal">Mandal <span class="required">*</span>
+                          </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input type="text" id="mandal" name="mandal" value="<%= typeof user!='undefined' ? user[0].mandal  :session.user.mandal  %>"
+                                      required="required" class="form-control col-md-7 col-xs-12" readonly>
+                        </div>
+                      <% } %>
+ </div>
+                    
+                             <!-- <input type="hidden" id="role" name="role" value="5a84c5184102d939931c7047" required="required" class="form-control col-md-7 col-xs-12" readonly> -->
+                    <% if(session.user.role_id.role != 'district_editor'){  %>
+                        <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Status <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select id="heard" name="status" class="form-control" required>
+                                <!-- <option  readonly selected>Choose status..</option> -->
+                                <option value="1" <%= typeof user!='undefined' && user[0].status == true ? 'selected' :''  %>>Active</option>
+                                <option value="0" <%= typeof user!='undefined' && user[0].status == false ? 'selected' :''  %>>Inactive</option>
+                                <!-- <option value="mouth">Word of mouth</option> -->
+                              </select>
+                        </div>
+                      </div>
+                      <% } %>
+                       
+                       <%} %>
+                      <% if(session.user.role_id.role == 'administrator'){ %>
+
+
+                       <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Role <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select id="role" name="role" class="form-control" required>
+                                <!-- <option readonly <%= typeof user!='undefined' ? '' :'selected'  %>>Choose role..</option> -->
+                                <%- role %>
+                              </select>
+                        </div>
+                      </div>
+
+                       <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="state">State <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select id="hea" name="state" class="form-control" required>
+                                <option id="ap" value="Andhra Pradesh" <%= typeof user!='undefined' && user[0].state == 'Andhra Pradesh'? 'Selected' :''  %>>Andhra Pradesh</option>
+                                <option id="tel" value="Telangana" <%= typeof user!='undefined' && user[0].state == 'Telangana'? 'Selected' :''  %>>Telangana</option>
+                            </select>
+                        </div>
+                      </div>
+
+                      <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12  label-district" for="district">District <span class="required">*</span>
+                        </label>
+                      
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select id="hear" name="district" class="form-control" required>
+                              <option value="<%= typeof user!='undefined' ? user[0].district :'Not Selected'  %>" selected readonly><%= typeof user!='undefined' ? user[0].district :'Not Selected'  %></option>
+                               <% district.forEach(function(dist){ %>
+                              <option id="<%= dist.state.replace(/\s+/g, '-') %>" value="<%= dist.district %>" <%# typeof user!='undefined' && user[0].district == dist.district ?  'selected':''  %>><%= dist.district %></option>
+                               <% }); %>
+                            </select>
+                        </div>
+                      </div>
+
+                      <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12 label-mandal" for="district">Mandal <span class="required">*</span>
+                        </label>
+                      
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select id="mand" name="mandal" class="form-control" required>
+                              <option value="<%= typeof user!='undefined' ? user[0].mandal :'Not Selected'  %>" selected readonly><%= typeof user!='undefined' ? user[0].mandal :'Not Selected'  %></option>
+                               <% mandal.forEach(function(man){ %>
+                              <option id="<%= man.district.replace(/\s+/g, '-') %>" value="<%= man.mandal %>" <%# typeof user!='undefined' && user[0].mandal == man.mandal ?  'selected':''  %>><%= man.mandal %></option>
+                               <% }); %>
+                            </select>
+                        </div>
+                      </div>
+
+                     
+                      
+                      <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Status <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select id="heard" name="status" class="form-control" required>
+                                <!-- <option  readonly selected>Choose status..</option> -->
+                                <option value="true" <%= typeof user!='undefined' && user[0].status == true ? 'selected' :''  %>>Active</option>
+                                <option value="false" <%= typeof user!='undefined' && user[0].status == false ? 'selected' :''  %>>Inactive</option>
+                                <!-- <option value="mouth">Word of mouth</option> -->
+                              </select>
+                        </div>
+                      </div>
+                      <% } else{ %>
+                          <input name="role" type="hidden" id="roleAssign">
+                      <% } %>
+                      
+                      <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telephone">Telephone <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="number" id="telephone" name="phone" value="<%= typeof user!='undefined'?  user[0].phone :''  %>" required="required" data-validate-length-range="8,10" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">Qualification <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <textarea id="textarea" required="required" name="bio" class="form-control col-md-7 col-xs-12"><%= typeof user!='undefined'?user[0].bio :''%></textarea>
+                        </div>
+                      </div>
+
+                      <div class="ln_solid"></div>
+
+        
+                      
+                      <div class="form-group">
+                        <div class="col-md-6 col-md-offset-3">
+                          <a type="submit" class="btn btn-primary" href="/mcp/users">Cancel</a>
+                          <button id="send"  type="submit" class="btn btn-success">Save</button>
+                        </div>
+                      </div>
+                    </form>
+
+                   <!-- <form method="post" class="form-horizontal form-label-left"  novalidate>
+                       <div class="item form-group">
+                        <label for="password2" class="control-label col-md-3 col-sm-3 col-xs-12">Repeat Password</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="password2" type="password" name="password2" data-validate-linked="password" class="form-control col-md-7 col-xs-12" required="required">
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-md-offset-3">
+                      <button id="send" type="submit" class="btn btn-success">Change Password</button>
+                    </div> 
+                    </form>-->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+
+            <!-- <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+              </button>
+              <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div> -->
+            <div class="modal-body">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+              </button>
+              <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                  <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Image</a>
+                  </li>
+                  <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Upload</a>
+                  </li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                  <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                    <div class="row upload"> 
+
+                      <!-- <p>Media gallery design emelents</p> -->
+
+                    </div>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                    <!-- <p>Drag multiple files to the box below for multi upload or click to select files. This is for demonstration purposes only, the files are not uploaded to any server.</p> -->
+                    <form id="upload-images" action="/mcp/media/save" method="page" class="dropzone dz-clickable"><div class="dz-default dz-message"><span>Drop files here to upload</span></div></form>
+                    <br>
+                    <br>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Save</button>
+            </div> 
+
+          </div>
+        </div>
+      </div>
+      <script src="/mcp/vendors/jquery/dist/jquery.min.js"></script>
+       <script type="text/javascript">
+
+       
+        var loaded = false;
+        function onlyAlphabets(e, t) {
+            try {
+                if (window.event) {
+                    var charCode = window.event.keyCode;
+                }
+                else if (e) {
+                    var charCode = e.which;
+                }
+                else { return true; }
+                if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
+                    return true;
+                else
+                    return false;
+            }
+            catch (err) {
+                alert(err.Description);
+            }
+        }
+
+             function fetchImages() {
+
+                    if(loaded) return;
+                     
+                        $.ajax({ 
+                          type: 'GET', 
+                          url: '/mcp/media', 
+                          dataType: 'json',
+                          success: function (data) { 
+                              $.each(data, function(index, element) {
+                                  $('.upload').append(
+                                    '<div class="col-md-55 reupload">'+
+                        '<div class="thumbnail select-thum" style="height: auto;">'+
+                          '<div class="image view view-first">'+
+                            '<img style="width: 100%; height: 100%; display: block;" src="'+'/swaerotimes/uploads/'+element+'" alt="image">'+
+                            '<div style="height: 100%;" class="mask se se-'+index+'" onclick="return selectImage(\''+index+'\' , \''+element+'\')">'+
+                              '<p><br></p>'+
+                              '<div class="tools tools-bottom">'+
+                                '<a style="cursor:pointer;" onclick="return removeItem(\''+element+'\')"><i class="fa fa-times"></i></a>'+
+                              '</div>'+
+                            '</div>'+
+                          '</div>'+
+
+                        '</div>'+
+                      '</div>'
+                      );
+                              });
+                          }
+                      });
+                loaded = true;
+            }
+
+        function selectImage(index,ele){
+          $('.SingleImage').css({'background-image':'url(/swaerotimes/uploads/'+ele+')','background-size':'cover'});
+          $('.SingleImage input[name=user_image]').val(ele);
+           $('.remove_img').css({'display':'block'});
+           $('.upload_image').css({'display':'none'});
+           $('.se').css( {"border": "none","opacity":"0"} );
+           
+           //alert(index);
+           $('.se-'+index).css( {"border": "6px solid rgb(134, 198, 233)","opacity":"1"} );
+        }
+
+        function remove_img(){
+          $('.SingleImage').css({'background-image':'none'});
+         $('.SingleImage input[name=user_image]').val('');
+          $('.remove_img').css({'display':'none'});
+           $('.upload_image').css({'display':'block'});
+        }
+
+      $(function(){
+
+
+          Dropzone.options.uploadImages = {
+            maxFilesize: 5,
+            //addRemoveLinks: true,
+            dictResponseError: 'Connection lost. Please reupload.',
+            acceptedFiles: ".png,.jpg,.gif,.bmp,.jpeg,.pdf",
+
+            init:function(){
+              var self = this;
+              // config
+            //  self.options.addRemoveLinks = true;
+              self.options.dictRemoveFile = "Delete";
+              //New file added
+              self.on("addedfile", function (file) {
+                //console.log('new file added ', file);
+              });
+              // Send file starts
+              self.on("sending", function (file) {
+                //console.log('upload started', file);
+                $('.meter').show();
+              });
+              
+              // File upload Progress
+              self.on("totaluploadprogress", function (progress) {
+                //console.log("progress ", progress);
+                //$('.roller').width(progress + '%');
+              });
+
+              self.on("queuecomplete", function (progress) {
+                $('.meter').delay(999).slideUp(999);
+              });
+              
+              // On removing file
+              self.on("removedfile", function (file) {
+                 var name = file.name;
+                $.ajax({
+                    type: 'GET',
+                    url:'/mcp/media/delete/'+name,
+                    //data:'id='+name,
+                    dataType:'json',
+                    success: function(data){ }
+            });
+                //console.log(file);
+              });
+            }
+          };
+      });
+        
+
+        $('#home-tab').click(function(){
+          $('.reupload').remove();
+             $.ajax({ 
+                          type: 'GET', 
+                          url: '/mcp/media', 
+                          dataType: 'json',
+                          success: function (data) { 
+                              $.each(data, function(index, element) {
+                                  $('.upload').append(
+                                    '<div class="col-md-55 reupload">'+
+                        '<div class="thumbnail select-thum" style="height: auto;">'+
+                          '<div class="image view view-first">'+
+                            '<img style="width: 100%; height: 100%; display: block;" src="'+'/swaerotimes/uploads/'+element+'" alt="image">'+
+                            '<div style="height: 100%;" class="mask se se-'+index+'" onclick="return selectImage(\''+index+'\' , \''+element+'\')">'+
+                              '<p><br></p>'+
+                              '<div class="tools tools-bottom">'+
+                                '<a style="cursor:pointer;" onclick="return removeItem(\''+element+'\')"><i class="fa fa-times"></i></a>'+
+                              '</div>'+
+                            '</div>'+
+                          '</div>'+
+
+                        '</div>'+
+                      '</div>'
+                      );
+                              });
+                          }
+                      });
+        });
+
+        function removeItem(i){
+               $('.reupload').remove();
+                $.ajax({
+                    type: 'GET',
+                    url:'/mcp/media/delete/'+i,
+                    //data:'id='+name,
+                    dataType:'html',
+                    success: function(data){
+                      $.ajax({ 
+                          type: 'GET', 
+                          url: '/mcp/media', 
+                          dataType: 'json',
+                          success: function (data) { 
+                              $.each(data, function(index, element) {
+                                  $('.upload').append(
+                                    '<div class="col-md-55 reupload">'+
+                        '<div class="thumbnail select-thum" style="height: auto;">'+
+                          '<div class="image view view-first">'+
+                            '<img style="width: 100%; height: 100%; display: block;" src="'+'/swaerotimes/uploads/'+element+'" alt="image">'+
+                            '<div style="height: 100%;" class="mask se se-'+index+'" onclick="return selectImage(\''+index+'\' , \''+element+'\')">'+
+                              '<p><br></p>'+
+                              '<div class="tools tools-bottom">'+
+                                '<a style="cursor:pointer;" onclick="return removeItem(\''+element+'\')"><i class="fa fa-times"></i></a>'+
+                              '</div>'+
+                            '</div>'+
+                          '</div>'+
+
+                        '</div>'+
+                      '</div>'
+                      );
+                              });
+                          }
+                      });
+                    }
+            });
+        }
+      </script>
+      <script type="text/javascript">
+ 
+        $( document ).ready(function() {
+
+$(".email").blur(function(){
+ var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+ if(filter.test($("#email").val())){
+$.post("/mcp/checkEmail",{email: $("#email").val()}, function(data, status){
+ if(data.errorCode==1){
+    alert("Email Address already exists");
+ $("#email").val("");
+  }
+});
+} });
+          // Handler for .ready() called.
+          $( "select#hea" )
+          .change(function() {
+            var str = "";
+            $( "select#hea option:selected" ).each(function() {
+              str = $( this ).attr('id');
+            });
+
+            $( "select#hear option" ).each(function() {
+              // var srt = $( this > "option").attr('id');
+              if (str=="ap") {
+                $("select#hear option").css( "display", "none" );
+                $("select#hear option#Andhra-Pradesh").css( "display", "block" );
+              }
+              else if (str=="tel") {
+                $("select#hear option").css( "display", "none" );
+                $("select#hear option#Telangana").css( "display", "block" );
+              }
+              // else{
+              //   $("select#hear option").css( "display", "none" );
+              // }
+            });
+
+            // $( "div" ).text( str );
+          })
+          .trigger( "change" );
+
+           $( "select#hear" )
+          .change(function() {
+            var str = "";
+            $( "select#hear option:selected" ).each(function() {
+              //str = $( this ).attr('id');
+              str = $( this ).val().replace(/\s+/g, '-');
+            });
+
+            $( "select#mand option" ).each(function() {
+              // var srt = $( this > "option").attr('id');
+              if (str == $( this ).attr('id')) {
+                $("select#mand option").css( "display", "none" );
+                $("select#mand option#"+str).css( "display", "block" );
+              }
+             
+              // else{
+              //   $("select#hear option").css( "display", "none" );
+              // }
+            });
+
+            // $( "div" ).text( str );
+          })
+          .trigger( "change" );
+
+          //village editor
+$('#roleAssign').val("<%= roles.village_reporter %>");
+
+          $( "select#role" ).change(function() {
+
+            //alert( $( this ).val());
+            //admin
+ if ('<%= roles.administrator %>' == $( this ).val()) {
+            $("select[name=district]").css( "display", "none" );
+            $("select[name=mandal]").css( "display", "none" );
+            $(".label-mandal").css( "display", "none" );
+            $(".label-district").css( "display", "none" );
+            //alert('message?: DOMString');
+          } 
+
+          //districk
+ if ('<%= roles.district_editor %>' == $( this ).val()) {
+             $("select[name=district]").css( "display", "block" );
+            $("select[name=mandal]").css( "display", "none" );
+            $(".label-mandal").css( "display", "none" );
+            $(".label-district").css( "display", "block" );
+
+          }
+//village
+ if ('<%= roles.village_reporter %>' == $( this ).val()) {
+             $("select[name=district]").css( "display", "block" );
+            $("select[name=mandal]").css( "display", "block" );
+            $(".label-mandal").css( "display", "block" );
+            $(".label-district").css( "display", "block" );
+
+          }
+
+          })
+          .trigger( "change" );
+
+        });
+
+
+      </script>
+        <!-- /page content -->
+<%- include('layouts/footer') -%>

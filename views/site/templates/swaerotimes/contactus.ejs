@@ -1,0 +1,53 @@
+<%- include('layouts/header') -%>
+    <!-- Main -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+    <div id="main" style="font-family:'Raleway', Helvetica, sans-serif; margin-top:30px;">
+
+        <!-- Post -->
+        <article class="post">
+        <!-- <header>
+            <div class="title">
+                    <h2 style="letter-spacing:0;">
+                        <a href="#">Contact Us</a>
+                    </h2>
+                </div>
+
+            </header>-->
+        <% if(typeof message !='undefined'){ %>
+     
+                <p> <%= message %> </p>
+  
+        <% } %>
+        <a target="_blank" ><img width="20" height="20" src="http://www.computer-realm.net/wp-content/uploads/post-images/2016/10/whatsapp.jpg"> 836778888</a>
+        <a target="_blank" ><img  width="20" height="20"s src="https://cdn.onlinewebfonts.com/svg/img_439485.png"> pylonnews2018@gmail.com</a>
+        <div class="row" style="margin-left:20%">
+                <form class="form-control" method="POST" style="width:80%;">
+                    <input type="text" class="form-control" placeholder="Enter Your Name" name="name" required /><br>
+                    <input type="email" class="form-control" placeholder="Enter Your Email" name="email" required /><br>
+                    <input type="text" maxlength="10" onkeypress="return isNumber(event)" class="form-control" placeholder="Enter Your Phone Number" name="phone" required /><br>
+                    <label for="comment">Comment:</label>
+                     <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
+                    <input type="submit" value="Submit" class="btn btn-primary">
+                </form>
+                
+            </div>
+        <div class="col-lg-12">
+            <div>
+                <iframe width="100%" height="400" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ-YXs2T-XyzsREDKmBovfldc&key=AIzaSyBFiQmCymVrj8xNY58DLAvZ3OrXlNMHMqs"
+                    allowfullscreen></iframe>
+            </div>
+        </div>
+            
+        </article>
+
+    </div>
+    <script>
+        function isNumber(evt) {
+                evt = (evt) ? evt : window.event;
+                var charCode = (evt.which) ? evt.which : evt.keyCode;
+                if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                    return false;
+                }
+                return true;
+            }
+    </script>

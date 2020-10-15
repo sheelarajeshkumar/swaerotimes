@@ -1,0 +1,182 @@
+<%- include('layouts/header') %>
+        
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Menu</h3>
+              </div>
+
+
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="">
+
+
+
+
+              <div class="clearfix"></div>
+
+
+
+
+              <div class="clearfix"></div>
+
+
+
+
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="">
+
+
+
+
+
+
+            </div>
+
+            <div class="col-md-4 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Add menus</h2>
+                  
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                  <form method="post" class="form-horizontal form-label-left">
+
+                    <div class="form-group">
+                      <label class="control-label">Menu</label>
+
+                      <select name="catPag_id" class="form-control">
+                      	<!-- <option value="/">Home</option> -->
+                      	<% categories.forEach(function(cate) { %>
+                      		<%# cate.slug.replace(/ /g,"-"); %>
+                            <option value="<%= cate._id %>" <%= typeof doc !='undefined' && doc[0].catpag_id.slug == cate.slug ? 'selected': '' %>><%= cate.category %></option>
+
+                        <% }) %>
+                     </select>
+                          
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Priority</label>
+
+                            <input name="priority" value="<%= typeof doc !='undefined' ? doc[0].priority : '' %>" type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="<%= typeof doc !='undefined' ? 'Change' : 'Add' %>" />
+                    </div>
+                      
+                    
+                  </form>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="col-md-8 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>All menus </h2>
+                  <!-- <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Settings 1</a>
+                        </li>
+                        <li><a href="#">Settings 2</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul> -->
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <!-- start accordion -->
+                  <table class="table table-striped projects">
+                      <thead>
+                        <tr>
+                          <th style="width: 1%">#</th>
+                          <th>Menu Name</th>
+                          <!-- <th>Team Members</th>
+                          <th>Project Progress</th> -->
+                          <th style="width: 20%">Priority</th>
+                          <th style="width: 20%">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+					<% menus.forEach(function(menu) { %>
+                        <tr>
+                          <td>#</td>
+                          <td>
+                            <a><%= menu.catpag_id.category %></a>
+                            <br />
+                          </td>
+                          <td>
+                              <a><%= menu.priority %></a>
+                              <br />
+                          </td>
+                          <td>
+                            <!-- <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a> -->
+                            <a href="/mcp/menus/<%= menu.language %>/<%= menu._id %>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+                            <a href="/mcp/menus/<%= menu.language %>/delete/<%= menu._id %>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+                          </td>
+                        </tr>
+					<% }); %>
+
+                      </tbody>
+                    </table>
+                    <!-- end of accordion -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <!-- /page content -->
+
+        <script src="/mcp/vendors/jquery/dist/jquery.min.js"></script>
+        <script>
+
+           function findGetParameter(parameterName) {
+    var result = null,
+        tmp = [];
+    location.search
+        .substr(1)
+        .split("&")
+        .forEach(function (item) {
+          tmp = item.split("=");
+          if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+        });
+    return result;
+}
+
+                  $( document ).ready(function() {
+                    if(findGetParameter('msg')){
+                      alert(findGetParameter('msg'));
+                    }
+                });
+
+        </script>
+<%- include('layouts/footer') %>

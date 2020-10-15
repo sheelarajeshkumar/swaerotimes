@@ -1,0 +1,44 @@
+<!-- Menu -->
+<section id="menu">
+
+			<!-- Search -->
+			<!-- <section>
+								<form class="search" method="get" action="#">
+									<input type="text" name="query" placeholder="Search" />
+								</form>
+							</section> -->
+
+			<!-- Links -->
+			<section>
+				<ul class="links">
+					<li><a href="/">Home</a></li>
+					<% menus.forEach(function(menu){ %>
+						<li><a href="/<%= menu.catpag_id.language; %>/<%= menu.catpag_id.slug.replace(/ /g,"-"); %>"><%= menu.catpag_id.category %></a></li>
+
+						<% }); %>
+				</ul>
+			</section>
+			<section>
+				<ul class="links" style="text-align:center;">
+					<li>
+						<a href="#" class="lg">
+							<p class="lg">LANGUAGE : ENGLISH</p>
+						</a>
+					</li>
+					<!-- <li>
+										<a href="#">
+											<p>TELUGU</p>
+										</a>
+									</li> -->
+				</ul>
+			</section>
+
+			<!-- Actions -->
+			<!-- <section>
+								<ul class="actions vertical">
+									<li><a href="#" class="button big fit">Log In</a></li>
+								</ul>
+							</section> -->
+
+		</section>
+				

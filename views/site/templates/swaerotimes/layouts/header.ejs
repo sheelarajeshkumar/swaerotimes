@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html lang="te" dir="l">
+
+<head>
+	<title>Swaerotimes</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+	<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" type="text/css" href="/swaerotimes/Mandali-Regular.ttf">
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/css/bootstrap.css"> -->
+	<link rel="stylesheet" href="/swaerotimes/assets/css/main.css" />
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	 crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+	 crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js" integrity="sha384-feJI7QwhOS+hwpX2zkaeJQjeiwlhOP+SdQDqhgvvo1DsjtiSQByFdThsxO669S2D"
+	 crossorigin="anonymous"></script>
+	
+	<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+
+<style>
+
+@font-face {
+font-family: "Mandali";
+src: url("/swaerotimes/Mandali-Regular.ttf");
+}
+
+@font-face {
+font-family: "nats";
+src: url("/swaerotimes/NATS.ttf");
+}
+
+body{
+	font-family: "Mandali";
+}
+
+ul.bl li a {
+	/* font-family: "Mandali" !important; */
+	font-size: 1em !important;
+	letter-spacing: 0.0em !important;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Header -->
+		<header id="header">
+			<h1 class="rem" style="margin:0; padding:0; display:none;"><a class="<%= language %>" href="#">Swaerotimes</a></h1>
+			<nav class="links clearfix" style="border:none;">
+				<ul class="float-left">
+			  <li style="display:inline-block;">
+							<h1 style="margin:10px 0 0 0; padding:0;"><a class="<%= language %>" href="/<%= language %>">Swaerotimes</a></h1>
+						</li>
+						<!-- <li class="date-c"><a href="#">Feb<br>2018</a></li>-->
+					</ul>
+					<ul class="float-right">
+					 <!-- <li style="display:inline-block;">
+							<h1 style="margin:10px 0 0 0; padding:0;"><a class="logo" href="/<%= language %>"> Pylon News</a></h1>
+						</li> -->
+						<li><a href="/epaper">e-Paper</a></li>
+						<li><a href="#">+91 83677 88888</a></li>
+						<li><a href="mailto:Swaerotimes@gmail.com">Swaerotimes@gmail.com</a></li>
+						<li><a href="#" class="lg">LANGUAGE : ENGLISH</a></li>
+						<br>
+						<ul class="icons social float-right">
+							<li><a target="_blank" href="https://twitter.com/swaerotimes" class="fa-twitter fa-2x"><span class="label">Twitter</span></a></li>
+							<li><a target="_blank" href="https://www.facebook.com/swaerotimes" class="fa-facebook fa-2x"><span class="label">Facebook</span></a></li>
+							<li><a target="_blank" href="/<%= language %>/contactus" class="fa-envelope fa-2x"><span class="label">Email</span></a></li>
+						</ul>
+						<li class="float-right">
+							<div class="row">
+								<input name="keyword" id="keyword" onblur="formSearchURL()" type="test" class="form-control col-lg-10" >
+								<a href="/<%= language %>/search/" id="keywordsURL" class="btn btn-default col-sm-1">
+									<i class="fa fa-search"></i>
+								</a>
+							</div>
+						</li>
+
+						<!-- <li><a href="#">TELUGU</a></li> -->
+					</ul>
+				</nav>
+				<break></break>
+				<nav class="links clearfix" style="border:none;background-color:  #962727;color: #fff;margin-left: 0;padding-left: 8em;">
+					<ul class="float-left bl">
+						<li><a href="/<%= language %>">Home</a></li>
+						
+						<% var index=0; %>
+						<% menus.forEach(function(menu){  if(index++ <10){ %>
+						<li><a href="/<%= menu.catpag_id.language; %>/<%= menu.catpag_id.slug.replace(/ /g,"-"); %>"><%= menu.catpag_id.category %></a></li>
+
+						<% }}); %>
+						<li>
+							<a href="/<%= language %>/contactus">Contact Us</a>
+						</li>
+						<!-- <li><a href="#">Contact Us</a></li> -->
+					</ul>
+
+					<!-- <li><a href="#">Swaero Style</a></li>
+						<li><a href="#">Jnana Yuddam</a></li>
+						<li><a href="#">Swaero Hero</a></li>
+						<li><a href="#">Swaero Tsunami</a></li>
+						<li><a href="#">Swaeroism</a></li> -->
+
+					<!--social links-->
+
+				</nav>
+				<nav class="main" style="height:56px;font-family: 'Mandali';">
+					<ul>
+					<!-- <li class="search">
+									<a class="fa-search" href="#search">Search</a>
+									<form id="search" method="get" action="#">
+										<input type="text" name="query" placeholder="Search" />
+									</form>
+								</li> -->
+								<li class="menu">
+									<a class="fa-bars" href="#menu">Menu</a>
+								</li>
+							</ul>
+						</nav>
+					</header>
+					
+				<script>
+					function formSearchURL(){
+						var link = document.getElementById("keywordsURL").href;
+						var keywords =  document.getElementById("keyword").value;
+						document.getElementById("keywordsURL").href = link + keywords;
+					}
+				</script>	
+				<script>
+					var input = document.getElementById("keyword");
+					input.addEventListener("keyup", function (event) {
+						event.preventDefault();
+						if (event.keyCode === 13) {
+							formSearchURL();
+							document.getElementById("keywordsURL").click();
+						}
+					});
+				</script>
+<!-- Menu -->
+<%- include('menu') -%>
+

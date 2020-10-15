@@ -1,0 +1,110 @@
+<%- include('layouts/header') -%>
+<script src="/swaerotimes/assets/js/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+<!-- Sidebar -->
+<section id="sidebar" style=" margin-top:30px;">
+
+    <!-- Mini Posts -->
+        <section>
+            <div class="mini-posts" style="padding: 22px;background-color:  #fff;border: solid 1px rgba(160, 160, 160, 0.3);">
+                <h2>LATEST POSTS</h2>
+
+                <% latest.forEach(function(late) { %>
+                    <article class="mini-post">
+                        <header>
+                            <% var date =  new Date(late.addedOn); var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];%>
+                            <h3><a href="<%= '/'+late.language+'/'+catSlug+'/'+date.getFullYear()+'/'+monthNames[date.getMonth()]+'/'+date.getDate()+'/'+late.slug.replace(/ /g,"-") %>"><%= late.title %></a></h3>                           
+                            <p style="font-size: 10px;font-weight: 400; margin-bottom:1em;color:#333;"><%= monthNames[date.getMonth()]+', '+date.getFullYear() %></p>
+                            <p class="published"><%= late.excerpt %></p>
+                        </header>
+                        <a href="<%= '/'+late.language+'/'+catSlug+'/'+date.getFullYear()+'/'+monthNames[date.getMonth()]+'/'+date.getDate()+'/'+late.slug.replace(/ /g,"-") %>" class="image"><img style="height:138.38px;" src="/swaerotimes/uploads/<%= late.feature_image; %>" alt="" /></a>
+                    </article>
+
+                    <% }); %>
+
+            </div>
+        </section>
+
+</section>
+<!-- Main -->
+
+    <!-- Post -->
+        <!-- Post -->
+        <% if(category==''){ %>
+            <div id="main"  style=" margin-top:30px;" >
+                <div class="modal fade" id="noPosts" role="dialog">
+                    <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <!-- <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Modal Header</h4>
+                        </div> -->
+                        <div class="modal-body">
+                        <p>No Post in this catagory...</p>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+            <script>
+                $(document).ready(function(){
+                     $("#noPosts").modal();
+                });
+            </script>
+        <% } %>            
+        <article class="post">
+            <header>
+                <div class="title">
+                    <h2 style="letter-spacing:0;"><a href="#"><%= category%></a></h2>
+                    <!-- <p>Lorem ipsum dolor amet nullam consequat etiam feugiat</p> -->
+                </div>
+                <!-- <div class="meta">
+                    <time class="published" datetime="2015-11-01">November 1, 2015</time>
+                    <a href="#" class="author"><span>Last Updated</span></a>
+                </div> -->
+            </header>
+            <!-- <a href="#" class="image featured"><img src="images/pic01.jpg" alt="" /></a>
+            <h3><a href="#">Vitae sed condimentum</a></h3>								
+            <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p> -->
+            <section>
+                <!-- <h3>Lists</h3> -->
+                <div class="row">
+                    <% posts.forEach(function(pos) { %>
+                    <% var date =  new Date(pos.addedOn); var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];%>
+                    <div class="6u 12u$(medium)">
+                        <!-- <h4>Unordered</h4> -->
+                        <!-- Mini Post -->
+                        <article class="mini-post">
+                                <header>
+                                    <h2 style="letter-spacing:0;"><a href="<%= '/'+pos.language+'/'+catSlug+'/'+date.getFullYear()+'/'+monthNames[date.getMonth()]+'/'+date.getDate()+'/'+pos.slug.replace(/ /g,"-") %>"><%= pos.title %></a></h2>
+                                    <p style="font-size: 10px;font-weight: 400; margin-bottom:1em;color:#333;"><%= monthNames[date.getMonth()]+', '+date.getFullYear() %></p>
+                                    <p class="published" style="letter-spacing:0;"><%- pos.excerpt %></p>
+                                    <!-- <a href="#" class="author"><img src="images/avatar.jpg" alt="" /></a> -->
+                                </header>
+                                <a href="<%= '/'+pos.language+'/'+catSlug+'/'+date.getFullYear()+'/'+monthNames[date.getMonth()]+'/'+date.getDate()+'/'+pos.slug.replace(/ /g,"-") %>" class="image"><img style="height:207.083px;" src="/swaerotimes/uploads/<%= pos.feature_image; %>" alt="" /></a>
+                            </article>
+                    </div>
+                    <% }) %>
+                </div>
+
+            </section>
+            <footer>
+                <!-- <ul class="actions">
+                    <li><a href="#" class="button big">Read More</a></li>
+                </ul> -->
+                <!-- <ul class="stats">
+                    <li><a href="#">General</a></li>
+                    <li><a href="#" class="icon fa-heart">28</a></li>
+                    <li><a href="#" class="icon fa-comment">128</a></li>
+                </ul> -->
+            </footer>
+        </article>
+
+        <!-- <ul class="actions pagination">
+            <li><a href="" class="disabled button big previous">Previous Page</a></li>
+            <li><a href="#" class="button big next">Next Page</a></li>
+        </ul> -->
+</div>
+<%- include('layouts/footer') -%>
