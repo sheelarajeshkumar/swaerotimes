@@ -307,10 +307,10 @@ console.log(req.body);
 
 
             nodemailerMailgun.sendMail({
-                from: 'SwaroTimes <support@swaerotimes.com>',
+                from: 'ProfRamky <support@ProfRamky.com>',
                 to: req.body.email,
                 subject: 'Resetting password',
-                html: 'Hi ' + req.body.name + ',<br><br><br>Congratulations.! You have been appointed as ' + req.body.role + ' to the swarotimes, please create your password here.. <a href="http://pylonnews.com/mcp/passwordset/' + mongoose.Types.ObjectId(users.id) + '">click hear</a><br><br><br><br><b>Regards,<br>Team Swaero Times.',
+                html: 'Hi ' + req.body.name + ',<br><br><br>Congratulations.! You have been appointed as ' + req.body.role + ' to the ProfRamky, please create your password here.. <a href="http://ProfRamkey.in/mcp/passwordset/' + mongoose.Types.ObjectId(users.id) + '">click hear</a><br><br><br><br><b>Regards,<br>Team ProfRamkey.',
             }, function (err, info) {
                 if (err) {
                 console.log('Error: ' + err);
